@@ -2,13 +2,10 @@ package main
 
 import "net/http"
 
-func (app *aplication) home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
 	}
-	w.Write([]byte("home"))
-	
+	app.render(w, 200, "home.html")
 }
-
-

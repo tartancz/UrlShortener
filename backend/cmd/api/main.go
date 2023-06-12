@@ -11,7 +11,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type aplication struct {
+type application struct {
 	errorLog      *log.Logger
 	infoLog       *log.Logger
 	templateCache map[string]*template.Template
@@ -24,13 +24,20 @@ func main() {
 
 	flag.Parse()
 
+	newTemplateCache()
+
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	app := aplication{
+	templates, err := newTemplateCache()
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+
+	app := application{
 		errorLog:      errorLog,
 		infoLog:       infoLog,
-		templateCache: nil, // TODO: add cached templates
+		templateCache: templates,
 	}
 	_ = app
 	//connect to db
