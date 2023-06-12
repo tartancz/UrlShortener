@@ -13,7 +13,7 @@ import (
 func main() {
 	//arguments
 	addr := flag.String("addr", ":4000", "HTTP network address")
-	connStr := flag.String("connStr", "zatimNic", "Connection string to Postgresql database")
+	connStr := flag.String("connStr", "user=dev password=dev dbname=dev sslmode=disable", "Connection string to Postgresql database")
 
 	flag.Parse()
 
