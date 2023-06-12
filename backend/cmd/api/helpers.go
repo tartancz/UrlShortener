@@ -20,7 +20,7 @@ func (app *application) render(w http.ResponseWriter, status int, page string) {
 		app.serverError(w, err)
 		return
 	}
-	
+
 	buf.WriteTo(w)
 }
 
