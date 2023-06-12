@@ -1,7 +1,15 @@
 {{define "main"}}
-    <form method="post">
-        <input type="text" name="url" id="url">
-        <input type="text" name="shortUrl" id="shortUrl">
-        <input type="submit">
-    </form>
+<form method="post">
+  <div class="mb-3">
+    <label for="url">URL you want shorten</label>
+    <input type="text" class="form-control" id="url" required />
+    <div class="form-text">here insert url you want to be redirected</div>
+  </div>
+  <div class="mb-3">
+    <label for="ShortUrl">Shortened URL</label>
+    <input type="text" class="form-control" id="ShortUrl" required />
+    <div class="form-text">Preview of shortened url</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 {{end}}
