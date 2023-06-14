@@ -4,14 +4,23 @@
   <div class="col-8">
     <p class="text-center">{{.FullURL}}</p>
   </div>
-  <div class="col-4">
-    <span>
-      <img
-        src="http://clipground.com/images/copy-4.png"
-        style="max-width: 30px; cursor: pointer"
-        title="Click to Copy"
-      />
-    </span>
+  <div class="col-2">
+    <button
+      class="btn btn-info"
+      onclick="copyToCLipboard('{{.FullURL}}')"
+    >
+      <span>
+        <img
+          src="http://clipground.com/images/copy-4.png"
+          style="max-width: 30px"
+          title="Click to Copy"
+        />
+        Copy
+      </span>
+    </button>
+  </div>
+  <div class="col-2 align-self-center text-success" style="display: none" id="succesMessage">
+    Copied
   </div>
 </div>
 {{end}}
