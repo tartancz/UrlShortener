@@ -1,20 +1,25 @@
 {{define "main"}}
 <form method="post">
   <div class="mb-3">
-    <label for="url">URL you want shorten</label>
-    <input type="text" class="form-control" id="url" name="url" required />
+    <label for="URL">URL you want shorten</label>
+    <input type="text" class="form-control" id="URL" name="URL" required />
     <div class="form-text">here insert url you want to be redirected</div>
   </div>
   <div class="mb-3">
-    <label for="ShortUrl">Shortened URL</label>
+    <label for="ShortURL">Shortened URL</label>
     <input
       type="text"
       class="form-control"
-      id="shortUrl"
-      name="shortUrl"
+      id="ShortURL"
+      name="ShortURL"
+      value="{{.Form.ShortURL}}"
+      oninput="updatePreviewUrl(this.value)"
       required
     />
-    <div class="form-text">Preview of shortened url</div>
+    <div class="form-text">
+      Preview of shortened url
+      <span class="text-info" id="PreviewURL">{{.FullURL}}</span>
+    </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

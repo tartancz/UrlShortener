@@ -5,6 +5,15 @@ import (
 	"path/filepath"
 )
 
+type templateData struct {
+	Form any
+	FullURL string
+}
+
+func newTemplateData() *templateData {
+	return &templateData{}
+}
+
 func newTemplateCache() (map[string]*template.Template, error) {
 	cache := map[string]*template.Template{}
 
