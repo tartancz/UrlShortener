@@ -43,7 +43,7 @@ func (app *application) homeGet(w http.ResponseWriter, r *http.Request) {
 func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 	form := homeForm{
 		URL:      r.FormValue("URL"),
-		ShortURL: r.FormValue("shortURL"),
+		ShortURL: r.FormValue("ShortURL"),
 	}
 
 	//URL
@@ -51,6 +51,20 @@ func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 	form.CheckField(validator.MaxLenght(form.URL, 2048), "url", "Url is too long, maximum of characters is 2048")
 	//shortUrl
 	formattedShortUrl := fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
-	form.CheckField(validator.ValidUrl(formattedShortUrl), "shortUrl", "This is not valid URL, please insert valid url")
-	form.CheckField(validator.MinLenght(form.ShortURL, 12), "shortUrl", "Url is too short, minimum of characters is 12")
+	form.CheckField(validator.ValidUrl(formattedShortUrl), "ShortURL", "This is not valid URL, please insert valid url")
+	form.CheckField(validator.MinLenght(form.ShortURL, 12), "ShortURL", "Url is too short, minimum of characters is 12")
+	//TODO: ADD UNIQUE VALIDATION
+
+	data := newTemplateData()
+
+	if !form.Valid() {
+		data.Form = form
+		data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+		app.render(w, http.StatusBadRequest, "home.html", data)
+		return
+	}
+
+	//TODO: CREATE DATABASE RECORD
+	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+	app.render(w, http.StatusCreated, "createdURL.html", data)
 }

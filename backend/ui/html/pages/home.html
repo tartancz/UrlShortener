@@ -4,7 +4,11 @@
     <label for="URL">URL you want shorten</label>
     <input type="text" class="form-control" id="URL" name="URL" required />
     <div class="form-text">here insert url you want to be redirected</div>
+    {{with .Form.FieldErrors.url}}
+    <label class="text-danger form-text">{{.}}</label>
+    {{end}}
   </div>
+
   <div class="mb-3">
     <label for="ShortURL">Shortened URL</label>
     <input
@@ -16,10 +20,14 @@
       oninput="updatePreviewUrl(this.value)"
       required
     />
+
     <div class="form-text">
       Preview of shortened url
       <span class="text-info" id="PreviewURL">{{.FullURL}}</span>
     </div>
+    {{with .Form.FieldErrors.ShortUrl}}
+    <label class="text-danger form-text">{{.}}</label>
+    {{end}}
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

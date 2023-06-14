@@ -1,0 +1,17 @@
+{{define "main"}}
+<h1 class="text-center py-4">HERE IS YOUR URL</h1>
+<div class="row">
+  <div class="col-8">
+    <p class="text-center">{{.FullURL}}</p>
+  </div>
+  <div class="col-4">
+    <span>
+      <img
+        src="http://clipground.com/images/copy-4.png"
+        style="max-width: 30px; cursor: pointer"
+        title="Click to Copy"
+      />
+    </span>
+  </div>
+</div>
+{{end}}
