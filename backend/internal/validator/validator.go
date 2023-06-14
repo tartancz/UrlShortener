@@ -1,8 +1,8 @@
 package validator
 
 import (
-	"fmt"
 	"net/url"
+	"unicode/utf8"
 )
 
 type Validator struct {
@@ -34,7 +34,14 @@ func (v *Validator) CheckField(ok bool, key, message string) {
 }
 
 func ValidUrl(value string) bool {
-	fmt.Println(value)
-	_, err := url.Parse(value)
+	_, err := url.ParseRequestURI(value)
 	return err == nil
+}
+
+func MinLenght(value string, min int) bool {
+	return utf8.RuneCountInString(value) >= min
+}
+
+func MaxLenght(value string, max int) bool {
+	return utf8.RuneCountInString(value) <= max
 }
