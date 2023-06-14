@@ -9,12 +9,14 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
+	"github.com/tartancz/UrlShortener/internal/models"
 )
 
 type application struct {
 	errorLog      *log.Logger
 	infoLog       *log.Logger
 	templateCache map[string]*template.Template
+	redirects     *models.RedirectModel
 }
 
 func main() {
@@ -34,12 +36,6 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
-	app := application{
-		errorLog:      errorLog,
-		infoLog:       infoLog,
-		templateCache: templates,
-	}
-	_ = app
 	//connect to db
 	db, err := connectToDB(*connStr)
 	if err != nil {
@@ -47,6 +43,13 @@ func main() {
 	}
 	//close db after end of program
 	defer db.Close()
+
+	app := application{
+		errorLog:      errorLog,
+		infoLog:       infoLog,
+		templateCache: templates,
+		redirects:     &models.RedirectModel{DB: db},
+	}
 
 	http.ListenAndServe(*addr, app.getRoutes())
 }
