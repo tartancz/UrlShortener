@@ -36,3 +36,16 @@ func (m *RedirectModel) Insert(url, ShortenUrl string) (int, error) {
 	}
 	return id, nil
 }
+
+func (m *RedirectModel) GetUrl(ShortenUrl string) (string, error) {
+	stmt := `SELECT url from redirects where shorten_url=$1`
+	var url string
+	row := m.DB.QueryRow(stmt, ShortenUrl)
+	if err := row.Scan(&url); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return "", ErrNoRecord
+		}
+		return "", err
+	}
+	return url, nil
+}
