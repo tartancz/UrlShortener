@@ -28,49 +28,49 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 type homeForm struct {
-	URL      string
-	ShortURL string
+	URL        string
+	ShortenUrl string
 	validator.Validator
 }
 
 func (app *application) homeGet(w http.ResponseWriter, r *http.Request) {
 	form := homeForm{
-		ShortURL: uuid.NewString(),
+		ShortenUrl: uuid.NewString(),
 	}
 	data := newTemplateData()
 	data.Form = form
-	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortenUrl)
 	app.render(w, http.StatusOK, "home.html", data)
 }
 
 func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 	form := homeForm{
-		URL:      r.FormValue("URL"),
-		ShortURL: r.FormValue("ShortURL"),
+		URL:        r.FormValue("URL"),
+		ShortenUrl: r.FormValue("ShortenUrl"),
 	}
 
 	//URL
 	form.CheckField(validator.ValidUrl(form.URL), "url", "This is not valid URL, please insert valid url")
 	form.CheckField(validator.MaxLenght(form.URL, 2048), "url", "Url is too long, maximum of characters is 2048")
-	//shortUrl
-	formattedShortUrl := fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
-	form.CheckField(validator.ValidUrl(formattedShortUrl), "ShortURL", "This is not valid URL, please insert valid url")
-	form.CheckField(validator.MinLenght(form.ShortURL, 12), "ShortURL", "Url is too short, minimum of characters is 12")
+	//ShortenUrl
+	formattedShortUrl := fmt.Sprintf("%s/URL/%s", r.Host, form.ShortenUrl)
+	form.CheckField(validator.ValidUrl(formattedShortUrl), "ShortenUrl", "This is not valid URL, please insert valid url")
+	form.CheckField(validator.MinLenght(form.ShortenUrl, 12), "ShortenUrl", "Url is too short, minimum of characters is 12")
 
 	data := newTemplateData()
 
 	if !form.Valid() {
 		data.Form = form
-		data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+		data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortenUrl)
 		app.render(w, http.StatusBadRequest, "home.html", data)
 		return
 	}
-	_, err := app.redirects.Insert(form.URL, form.ShortURL)
+	_, err := app.redirects.Insert(form.URL, form.ShortenUrl)
 	if err != nil {
 		if errors.Is(err, models.ErrDuplicateShortenUrl) {
-			form.AddFieldError("ShortURL", "this URL already exist, please enter new one")
+			form.AddFieldError("ShortenUrl", "this URL already exist, please enter new one")
 			data.Form = form
-			data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+			data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortenUrl)
 			app.render(w, http.StatusBadRequest, "home.html", data)
 		} else {
 			app.serverError(w, err)
@@ -78,7 +78,7 @@ func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortenUrl)
 	app.render(w, http.StatusCreated, "createdURL.html", data)
 }
 
@@ -87,6 +87,6 @@ func (app *application) redirectUser(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
-	shortUrl := strings.TrimPrefix(r.URL.Path, "/URL/")
-	fmt.Println(shortUrl)
+	ShortenUrl := strings.TrimPrefix(r.URL.Path, "/URL/")
+	fmt.Println(ShortenUrl)
 }

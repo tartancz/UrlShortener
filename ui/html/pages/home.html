@@ -10,13 +10,13 @@
   </div>
 
   <div class="mb-3">
-    <label for="ShortURL">Shortened URL</label>
+    <label for="ShortenUrl">Shortened URL</label>
     <input
       type="text"
       class="form-control"
-      id="ShortURL"
-      name="ShortURL"
-      value="{{.Form.ShortURL}}"
+      id="ShortenUrl"
+      name="ShortenUrl"
+      value="{{.Form.ShortenUrl}}"
       oninput="updatePreviewUrl(this.value)"
       required
     />
@@ -25,7 +25,7 @@
       Preview of shortened url
       <span class="text-info" id="PreviewURL">{{.FullURL}}</span>
     </div>
-    {{with .Form.FieldErrors.ShortURL}}
+    {{with .Form.FieldErrors.ShortenUrl}}
     <label class="text-danger form-text">{{.}}</label>
     {{end}}
   </div>
