@@ -32,6 +32,7 @@ func (m *RedirectModel) Insert(url, ShortenUrl string) (int, error) {
 				return 0, ErrDuplicateShortenUrl
 			}
 		}
+		return 0, err
 	}
 	return id, nil
 }
