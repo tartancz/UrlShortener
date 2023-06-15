@@ -10,6 +10,7 @@ func (app *application) getRoutes() http.Handler {
 	router.Handle("/static/", http.StripPrefix("/static", fileServer))
 
 	router.HandleFunc("/", app.home)
+	router.HandleFunc("/URL/", app.redirectUser)
 
 	return router
 }

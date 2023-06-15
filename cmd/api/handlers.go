@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/google/uuid"
 	"github.com/tartancz/UrlShortener/internal/models"
@@ -79,4 +80,13 @@ func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 
 	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
 	app.render(w, http.StatusCreated, "createdURL.html", data)
+}
+
+func (app *application) redirectUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
+	shortUrl := strings.TrimPrefix(r.URL.Path, "/URL/")
+	fmt.Println(shortUrl)
 }
