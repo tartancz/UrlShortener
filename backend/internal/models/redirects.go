@@ -29,10 +29,9 @@ func (m *RedirectModel) Insert(url, ShortenUrl string) (int, error) {
 		var postSQLerror *pq.Error
 		if errors.As(err, &postSQLerror) {
 			if postSQLerror.Code == "23505" && strings.Contains(postSQLerror.Message, "redirects_shorten_url") {
-				return 0, postSQLerror
+				return 0, ErrDuplicateShortenUrl
 			}
 		}
 	}
 	return id, nil
 }
-
