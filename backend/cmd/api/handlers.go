@@ -1,10 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/google/uuid"
+	"github.com/tartancz/UrlShortener/internal/models"
 	"github.com/tartancz/UrlShortener/internal/validator"
 )
 
@@ -63,8 +65,19 @@ func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 		app.render(w, http.StatusBadRequest, "home.html", data)
 		return
 	}
+	_, err := app.redirects.Insert(form.URL, form.ShortURL)
+	if err != nil {
+		if errors.Is(err, models.ErrDuplicateShortenUrl) {
+			form.AddFieldError("ShortURL", "this URL already exist, please enter new one")
+			data.Form = form
+			data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
+			app.render(w, http.StatusBadRequest, "home.html", data)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
 
-	//TODO: CREATE DATABASE RECORD
 	data.FullURL = fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
 	app.render(w, http.StatusCreated, "createdURL.html", data)
 }

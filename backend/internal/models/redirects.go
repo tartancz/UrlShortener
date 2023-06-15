@@ -35,3 +35,4 @@ func (m *RedirectModel) Insert(url, ShortenUrl string) (int, error) {
 	}
 	return id, nil
 }
+
