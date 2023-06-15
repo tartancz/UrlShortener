@@ -50,7 +50,6 @@ func main() {
 		templateCache: templates,
 		redirects:     &models.RedirectModel{DB: db},
 	}
-
 	http.ListenAndServe(*addr, app.getRoutes())
 }
 
