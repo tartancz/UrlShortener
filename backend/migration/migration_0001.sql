@@ -1,4 +1,4 @@
-CREATE TABLE "Redirects" (
+CREATE TABLE redirects (
   "id" integer PRIMARY KEY,
   "url" varchar,
   "shorten_url" varchar,
