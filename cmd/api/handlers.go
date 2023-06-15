@@ -88,5 +88,14 @@ func (app *application) redirectUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ShortenUrl := strings.TrimPrefix(r.URL.Path, "/URL/")
-	fmt.Println(ShortenUrl)
+	url, err := app.redirects.GetUrl(ShortenUrl)
+	if err != nil {
+		if errors.As(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
