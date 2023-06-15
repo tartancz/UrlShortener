@@ -55,7 +55,6 @@ func (app *application) homePost(w http.ResponseWriter, r *http.Request) {
 	formattedShortUrl := fmt.Sprintf("%s/URL/%s", r.Host, form.ShortURL)
 	form.CheckField(validator.ValidUrl(formattedShortUrl), "ShortURL", "This is not valid URL, please insert valid url")
 	form.CheckField(validator.MinLenght(form.ShortURL, 12), "ShortURL", "Url is too short, minimum of characters is 12")
-	//TODO: ADD UNIQUE VALIDATION
 
 	data := newTemplateData()
 
