@@ -7,9 +7,10 @@ function updatePreviewUrl() {
 
 document
   .getElementById("ShortenUrl")
-  .addEventListener("input", updatePreviewUrl);
+  ?.addEventListener("input", updatePreviewUrl);
 
-function copyToCLipboard(text) {
+function copyToClipboard() {
+  var text = document.getElementById("FullUrl").innerText;
   navigator.clipboard.writeText(text);
   var ele = document.getElementById("succesMessage");
   ele.style.display = "block";
@@ -17,3 +18,5 @@ function copyToCLipboard(text) {
     ele.style.display = "none";
   }, 3000);
 }
+
+document.getElementById("btnCopy")?.addEventListener("click", copyToClipboard);

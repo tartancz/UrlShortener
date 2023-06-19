@@ -14,7 +14,7 @@ func (app *application) getRoutes() http.Handler {
 	router.Handle("/static/", basicChain(http.StripPrefix("/static", fileServer)))
 
 	standard := chainer(app.recoverPanic, basicChain, secureHeaders)
-	_ = standard
+
 	router.Handle("/", standard(http.HandlerFunc(app.home)))
 	router.Handle("/URL/", standard(http.HandlerFunc(app.redirectUser)))
 

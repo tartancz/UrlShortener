@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -50,6 +51,7 @@ func main() {
 		templateCache: templates,
 		redirects:     &models.RedirectModel{DB: db},
 	}
+	fmt.Printf("listening on port %v", *addr)
 	http.ListenAndServe(*addr, app.getRoutes())
 }
 

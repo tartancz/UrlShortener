@@ -1,0 +1,15 @@
+.copy-img {
+    max-width: 30px
+}
+
+body {
+    background-color: ghostwhite;
+}
+
+nav {
+    background-color: #e3f2fd;
+}
+
+#succesMessage{
+    display: none;
+}

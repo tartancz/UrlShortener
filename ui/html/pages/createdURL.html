@@ -2,24 +2,24 @@
 <h1 class="text-center py-4">HERE IS YOUR URL</h1>
 <div class="row">
   <div class="col-8">
-    <p class="text-center">{{.FullURL}}</p>
+    <p class="text-center" id="FullUrl">{{.FullURL}}</p>
   </div>
   <div class="col-2">
-    <button
-      class="btn btn-info"
-      onclick="copyToCLipboard('{{.FullURL}}')"
-    >
+    <button class="btn btn-info" id="btnCopy">
       <span>
         <img
-          src="http://clipground.com/images/copy-4.png"
-          style="max-width: 30px"
+          src="/static/images/clipboard.png"
+          class="copy-img"
           title="Click to Copy"
         />
         Copy
       </span>
     </button>
   </div>
-  <div class="col-2 align-self-center text-success" style="display: none" id="succesMessage">
+  <div
+    class="col-2 align-self-center text-success"
+    id="succesMessage"
+  >
     Copied
   </div>
 </div>
