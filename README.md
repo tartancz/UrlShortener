@@ -24,7 +24,7 @@ Any contribution to this projects are welcomed.
 ## about project
 
 - This project is heavily inspired by book [Lets go](https://lets-go.alexedwards.net/). 
-- I tried to using only standart libraries only.
+- I tried to using only standard libraries only.
 
 # Install
 ### requriements:
