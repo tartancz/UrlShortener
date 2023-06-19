@@ -28,8 +28,8 @@ Any contribution to this projects are welcomed.
 
 # Install
 ### requriements:
-Golang 1.20+
-Docker or PostqreSQL
+- Golang 1.20+
+- Docker or PostqreSQL
 ```bash
 docker-compose -f services.yml up -d
 
