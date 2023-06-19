@@ -1,7 +1,13 @@
-function updatePreviewUrl(e) {
+function updatePreviewUrl() {
   var ele = document.getElementById("PreviewURL");
-  ele.innerText = `${window.location.host}/URL/${e}`;
+  ele.innerText = `${window.location.host}/URL/${
+    document.getElementById("ShortenUrl").value
+  }`;
 }
+
+document
+  .getElementById("ShortenUrl")
+  .addEventListener("input", updatePreviewUrl);
 
 function copyToCLipboard(text) {
   navigator.clipboard.writeText(text);
