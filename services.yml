@@ -2,6 +2,7 @@ version: "3"
 
 services:
   db:
+    container_name: db_shorten
     image: postgres:latest
     environment:
       - POSTGRES_DB=dev
